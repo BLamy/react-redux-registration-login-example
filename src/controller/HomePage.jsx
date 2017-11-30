@@ -2,9 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { userActions } from '../_actions';
+import { userActions } from '../model/user';
 
-class HomePage extends React.Component {
+export default connect(
+    ({ users, authentication }) => ({
+        users, user: authentication.user
+    })
+)(class HomePage extends React.Component {
     componentDidMount() {
         this.props.dispatch(userActions.getAll());
     }
@@ -42,16 +46,4 @@ class HomePage extends React.Component {
             </div>
         );
     }
-}
-
-function mapStateToProps(state) {
-    const { users, authentication } = state;
-    const { user } = authentication;
-    return {
-        user,
-        users
-    };
-}
-
-const connectedHomePage = connect(mapStateToProps)(HomePage);
-export { connectedHomePage as HomePage };
+})

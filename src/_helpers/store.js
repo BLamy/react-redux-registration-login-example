@@ -1,12 +1,18 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import rootReducer from '../_reducers';
+import users, { authentication, registration } from '../model/user';
+import alert from '../model/alert';
 
 const loggerMiddleware = createLogger();
 
 export const store = createStore(
-    rootReducer,
+    combineReducers({
+        authentication,
+        registration,
+        users,
+        alert
+    }),
     applyMiddleware(
         thunkMiddleware,
         loggerMiddleware

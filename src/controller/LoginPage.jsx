@@ -2,9 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { userActions } from '../_actions';
+import { userActions } from '../model/user';
 
-class LoginPage extends React.Component {
+export default connect(
+    ({ authentication }) => ({
+        loggingIn: authentication.loggingIn
+    })
+)(class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -69,14 +73,4 @@ class LoginPage extends React.Component {
             </div>
         );
     }
-}
-
-function mapStateToProps(state) {
-    const { loggingIn } = state.authentication;
-    return {
-        loggingIn
-    };
-}
-
-const connectedLoginPage = connect(mapStateToProps)(LoginPage);
-export { connectedLoginPage as LoginPage }; 
+})

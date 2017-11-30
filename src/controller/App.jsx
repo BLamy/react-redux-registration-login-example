@@ -3,13 +3,15 @@ import { Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { history } from '../_helpers';
-import { alertActions } from '../_actions';
-import { PrivateRoute } from '../_components';
-import { HomePage } from '../HomePage';
-import { LoginPage } from '../LoginPage';
-import { RegisterPage } from '../RegisterPage';
+import { alertActions } from '../model/alert';
+import PrivateRoute from '../view/PrivateRoute';
+import HomePage from './HomePage';
+import LoginPage from './LoginPage';
+import RegisterPage from './RegisterPage';
 
-class App extends React.Component {
+export default connect(
+    ({ alert }) => ({ alert })
+)(class App extends React.Component {
     constructor(props) {
         super(props);
 
@@ -41,14 +43,4 @@ class App extends React.Component {
             </div>
         );
     }
-}
-
-function mapStateToProps(state) {
-    const { alert } = state;
-    return {
-        alert
-    };
-}
-
-const connectedApp = connect(mapStateToProps)(App);
-export { connectedApp as App }; 
+})
